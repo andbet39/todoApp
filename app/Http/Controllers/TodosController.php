@@ -20,48 +20,14 @@ class TodosController extends Controller {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
 	public function store()
 	{
-	 	Todo::create(Request::all());
-	 	$input = Request::all();
-
-	 	return $input;
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+	 	$todo = Todo::create(Request::all());
+	 	return $todo ;
 	}
 
 	/**
@@ -72,7 +38,11 @@ class TodosController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$todo= Todo::find($id);
+		$todo->done=Request::input('done');
+		$todo->save();
+
+		return $todo;
 	}
 
 	/**
@@ -83,7 +53,7 @@ class TodosController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		Todo::destroy($id);
 	}
 
 }
