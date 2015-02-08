@@ -1,8 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Todo;
 use App\Http\Controllers\Controller;
+use App\Todo;
 use Request;
 
 class TodosController extends Controller {
@@ -12,10 +11,9 @@ class TodosController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-		$todos = Todo::all();
+	public function index() {
 
+		$todos = Todo::all();
 		return $todos;
 	}
 
@@ -24,10 +22,9 @@ class TodosController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
-	 	$todo = Todo::create(Request::all());
-	 	return $todo ;
+	public function store() {
+		$todo = Todo::create(Request::all());
+		return $todo;
 	}
 
 	/**
@@ -36,10 +33,9 @@ class TodosController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
-		$todo= Todo::find($id);
-		$todo->done=Request::input('done');
+	public function update($id) {
+		$todo = Todo::find($id);
+		$todo->done = Request::input('done');
 		$todo->save();
 
 		return $todo;
@@ -51,8 +47,7 @@ class TodosController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy($id) {
 		Todo::destroy($id);
 	}
 

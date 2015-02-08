@@ -23,6 +23,10 @@ Route::resource('api/todos','TodosController');
 
 Route::get('home', 'HomeController@index');
 
+Route::get('event/create', 'EventsController@create');
+Route::post('event/addPicture', 'EventsController@addPicture');
+
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
