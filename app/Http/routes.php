@@ -25,6 +25,16 @@ Route::get('home', 'HomeController@index');
 
 Route::get('event/create', 'EventsController@create');
 Route::post('event/addPicture', 'EventsController@addPicture');
+Route::get('event', 'EventsController@index');
+Route::get('event/get/{filename}', [
+		'as' => 'picture', 'uses' => 'EventsController@get']);
+
+	Route::get('fileentry', 'FileEntryController@index');
+	Route::get('fileentry/get/{filename}', [
+			'as' => 'getentry', 'uses' => 'FileEntryController@get']);
+	Route::post('fileentry/add', [ 
+		    'as' => 'addentry', 'uses' => 'FileEntryController@add']);
+
 
 
 Route::controllers([

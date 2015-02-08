@@ -4,7 +4,8 @@ use App\Http\Controllers\Controller;
 use Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
-
+use App\Picture;
+use Illuminate\Http\Response;
 
 class EventsController extends Controller {
 
@@ -14,7 +15,9 @@ class EventsController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		return view('Event/index');
+		$pictures = Picture::all();
+
+		return view('Event.index', compact('pictures'));
 	}
 
 	/**
@@ -28,15 +31,33 @@ class EventsController extends Controller {
 
 	public function addPicture() {
 		$file = Request::file('filefield');
-
 		$extension = $file->getClientOriginalExtension();
+		Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
 
-		Storage::disk('local')->put('xxx.'.$extension,  File::get($file));
+		$picture = new Picture();
+		$picture->title = Request::input('title');
+		$picture->mime = $file->getClientMimeType();
+		$picture->original_filename = $file->getClientOriginalName();
+		$picture->filename = $file->getFilename().'.'.$extension;
 
-		return $extension;
+		$picture->save();
 
+		return redirect('event');
+		
 	}
 
+	public function get($filename){
+
+
+		$picture = Picture::where('filename', '=', $filename)->firstOrFail();
+		$file = Storage::disk('local')->get($picture->filename);
+
+		return (new Response($file, 200))
+              ->header('Content-Type', $picture->mime);
+
+
+
+	}
 	/**
 	 * Store a newly created resource in storage.
 	 *
