@@ -29,7 +29,7 @@ Route::get('event', 'EventsController@index');
 Route::get('event/get/{filename}', [
 		'as' => 'picture', 'uses' => 'EventsController@get']);
 
-	Route::get('fileentry', 'FileEntryController@index');
+	Route::get('fileentry', ['as' => 'fileentry', 'uses' => 'FileEntryController@index']);
 	Route::get('fileentry/get/{filename}', [
 			'as' => 'getentry', 'uses' => 'FileEntryController@get']);
 	Route::post('fileentry/add', [ 
